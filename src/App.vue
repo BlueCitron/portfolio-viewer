@@ -1,45 +1,58 @@
 <template>
 <v-app app>
-  <header class="mt-5">
-    <h1 class="font-weight-light">웹 개발자 BlueCitron</h1>
-  </header>
+  <template v-if="true">
+    <header class="mt-5">
+      <h1 class="font-weight-light">웹 개발자 BlueCitron</h1>
+    </header>
 
-  <v-container class="my-3">
-      <v-btn
-      :to="{ name: 'Resume' }"
-      text
-      large
-      color="primary"
-      class="mr-2">이력서</v-btn>
-      <v-btn
-      :to="{ name: 'Portfolio' }"
-      text
-      large
-      color="primary"
-      class="mx-2">포트폴리오</v-btn>
-  </v-container>
+    <Navigation></Navigation>
 
-  <v-content>
-    <!-- Provides the application the proper gutter -->
+    <v-content>
+      <!-- Provides the application the proper gutter -->
       <!-- If using vue-router -->
       <router-view></router-view>
-  </v-content>
-  <v-footer id="footer" app>
-    푸터 ㅋㅋ
-  </v-footer>
+    </v-content>
+
+    <Footer></Footer>
+  </template>
+
+  <template v-else>
+    <v-layout fill-height align-center justify-center>
+      <v-progress-circular
+      :size="300"
+      color="primary"
+      indeterminate
+      ></v-progress-circular>
+      <span style="position: relative; left: -180px;">Loading..</span>
+    </v-layout>
+  </template>
+
 </v-app>
 </template>
+
 <script>
+import Navigation from '@/components/Navigation.vue'
+import Footer from '@/components/Footer.vue'
 
 export default {
-
+  components: {
+    Navigation,
+    Footer,
+  },
+  async created () {
+    console.log('App Created.')
+    // 여기서 데이터 로딩 후 Loading unset
+    const { data } = await this.$http.get('https://api.hnpwa.com/v0/news/1.json')
+    console.log(data)
+  }
 }
 </script>
+
 <style>
-#app, #footer {
+a { text-decoration: none;}
+#app {
   background: #ffffff;
   width: 1200px;
   margin: 0 auto;
 }
-
 </style>

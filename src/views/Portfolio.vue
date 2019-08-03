@@ -2,38 +2,24 @@
   <v-container fluid>
     <v-layout flex-wrap>
 
-      <!-- <v-card
-        loading="true"
-        width="400"
-        class="mx-2"
-        v-for="item in [1, 2, 3, 4]"
-      >
-          <v-img
-          v-if="media"
-          class="white--text"
-          height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        ></v-img>
-        <v-card-title>I'm a title</v-card-title>
-      </v-card> -->
       <v-card
           class="ma-3"
           width="360"
           height="300"
-          v-for="item in [1, 2, 3, 4, 5, 6, 7, 8, 9]"
-          @click="overlay = true"
+          v-for="item in items"
+          @click="overlay = true; detail = item;"
         >
           <v-img
             class="white--text"
             height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+            :src="item.img"
           ></v-img>
 
-          <v-card-text>SKT Tango-OC 개발 및 운영</v-card-text>
-          <v-card-text><small>2019.08.02 - 2019.08.07</small></v-card-text>
+          <v-card-text>{{ item.title }}</v-card-text>
+          <v-card-text><small>{{ item.term }}</small></v-card-text>
         </v-card>
 
-        <v-overlay :value="overlay" >
+        <v-overlay v-if="detail" :value="overlay" >
           <v-card
             class="ma-3"
             width="960"
@@ -43,41 +29,39 @@
             <v-img
               class="white--text"
               height="480px"
-              src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-            ></v-img>
+              :src="detail.img"
+            >
+            <v-card-title>{{ detail.title }}</v-card-title>
+            </v-img>
 
             <v-card-text>
-              <v-layout>
+              <v-layout v-if="detail.term" class="my-1">
                 <v-flex md2>기간</v-flex>
-                <v-flex md10>2019.08.02 - 2019.08.31</v-flex>
+                <v-flex md10>{{ detail.term }}</v-flex>
               </v-layout>
-            </v-card-text>
-            <v-card-text>
-              <v-layout>
+
+              <v-layout v-if="detail.tech" class="my-1">
                 <v-flex md2>사용기술</v-flex>
-                <v-flex md10>Java / Spring / HTML5CSS3 / Javascript / MySQL</v-flex>
+                <v-flex md10>{{ detail.tech }}</v-flex>
               </v-layout>
-            </v-card-text>
-            <v-card-text>
-              <v-layout>
+
+              <v-layout v-if="detail.desc" class="my-1">
                 <v-flex md2>설명</v-flex>
+                <v-flex md10>{{ detail.desc }}</v-flex>
+              </v-layout>
+
+              <v-layout v-if="detail.repo" class="my-1">
+                <v-flex md2>Repository</v-flex>
                 <v-flex md10>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  <a :href="detail.repo">{{ detail.repo }}</a>
                 </v-flex>
               </v-layout>
-            </v-card-text>
-            <v-card-text>
-              <v-layout>
-                <v-flex md2>Repository</v-flex>
-                <v-flex md10>https://github.com/BlueCitron/portfolio-viewer.git</v-flex>
-              </v-layout>
-            </v-card-text>
-            <v-card-text>
-              <v-layout>
+
+              <v-layout v-if="detail.url" class="my-1">
                 <v-flex md2>서비스 URL</v-flex>
-                <v-flex md10><a href="http://125.178.219.22:9300">http://125.178.219.22:9300</a></v-flex>
+                <v-flex md10><a :href="detail.url">{{ detail.url }}</a></v-flex>
               </v-layout>
+
             </v-card-text>
 
           </v-card>
@@ -89,6 +73,40 @@
 export default {
   data: () => ({
     overlay: false,
+    items: [
+      {
+          title: 'SKTelecom Tango-OC 개발 및 운영',
+          img: 'https://cdn.vuetifyjs.com/images/cards/docks.jpg',
+          term: '2019.08.02 - 2019.08.31',
+          tech: 'Java / SpringWebMVC / HTML5CSS3 / Javascript / MySQL',
+          desc: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
+          repo: 'https://github.com/BlueCitron/portfolio-viewer.git',
+          url: 'http://125.178.219.22:9300',
+      },
+      {
+          title: 'SKTelecom Tango-OR 개발',
+          img: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
+          term: '2019.03.02 - 2019.05.31',
+          tech: 'Java / SpringWebMVC / HTML5CSS3 / Javascript / Oracle 11g',
+          desc: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
+          repo: 'https://github.com/BlueCitron/portfolio-viewer.git',
+          url: 'http://125.178.219.22:9300',
+      }
+    ],
+    detail: null,
+    // {
+    //    https://cdn.vuetifyjs.com/images/cards/house.jpg
+    //     title: 'SKTelecom Tango-OC 개발 및 운영',
+    //     img: 'https://cdn.vuetifyjs.com/images/cards/docks.jpg',
+    //     term: '2019.08.02 - 2019.08.31',
+    //     tech: 'Java / Spring / HTML5CSS3 / Javascript / MySQL',
+    //     desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    //     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    //     repo: 'https://github.com/BlueCitron/portfolio-viewer.git',
+    //     url: 'http://125.178.219.22:9300',
+    // }
   }),
 }
 </script>
