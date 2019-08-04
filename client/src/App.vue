@@ -43,19 +43,15 @@ export default {
     isLoaded: false,
   }),
   async created () {
-    console.log('App Created.')
     // 여기서 데이터 로딩 후 Loading unset
-    console.log('RESUME_API : ', process.env.VUE_APP_RESUME_API)
-    console.log('PORTFOLIO_API : ', process.env.VUE_APP_PORTFOLIO_API)
-
     Promise.all([
       this.$http.get(process.env.VUE_APP_RESUME_API),
       this.$http.get(process.env.VUE_APP_PORTFOLIO_API),
     ]).then(values => {
       const resume = values[0].data
-      const portfolio = values[1].data
+      const portfolios = values[1].data
       this.$store.commit('SET_RESUME', resume)
-      this.$store.commit('SET_PORTFOLIO', portfolio)
+      this.$store.commit('SET_PORTFOLIOS', portfolios)
       this.isLoaded = true
     })
 

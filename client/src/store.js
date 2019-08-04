@@ -6,14 +6,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     resume: {},
-    portfolio: [],
+    portfolios: [],
   },
   mutations: {
     SET_RESUME (state, data) {
       state.resume = data
     },
-    SET_PORTFOLIO (state, data) {
-      state.portfolio = data
+    SET_PORTFOLIOS (state, data) {
+      state.portfolios = data
     },
   }
 })

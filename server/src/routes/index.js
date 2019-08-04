@@ -14,7 +14,7 @@ router.get('/resume', (req, res) => {
     const { resume } = YAML.parse(file);
     res.json(resume);
   } catch (e) {
-    console.err(e);
+    console.error(e);
   }
 });
 
@@ -24,7 +24,7 @@ router.get('/portfolio', (req, res) => {
     const { portfolio } = YAML.parse(file);
     res.json(portfolio);
   } catch (e) {
-    console.err(e);
+    console.error(e);
   }
 });
 
