@@ -1,6 +1,6 @@
 <template>
 <v-app app>
-  <template v-if="true">
+  <template v-if="isLoaded">
     <header class="mt-5">
       <h1 class="font-weight-light">웹 개발자 BlueCitron</h1>
     </header>
@@ -39,11 +39,26 @@ export default {
     Navigation,
     Footer,
   },
+  data: () => ({
+    isLoaded: false,
+  }),
   async created () {
     console.log('App Created.')
     // 여기서 데이터 로딩 후 Loading unset
-    const { data } = await this.$http.get('https://api.hnpwa.com/v0/news/1.json')
-    console.log(data)
+    console.log('RESUME_API : ', process.env.VUE_APP_RESUME_API)
+    console.log('PORTFOLIO_API : ', process.env.VUE_APP_PORTFOLIO_API)
+
+    Promise.all([
+      this.$http.get(process.env.VUE_APP_RESUME_API),
+      this.$http.get(process.env.VUE_APP_PORTFOLIO_API),
+    ]).then(values => {
+      const resume = values[0].data
+      const portfolio = values[1].data
+      this.$store.commit('SET_RESUME', resume)
+      this.$store.commit('SET_PORTFOLIO', portfolio)
+      this.isLoaded = true
+    })
+
   }
 }
 </script>

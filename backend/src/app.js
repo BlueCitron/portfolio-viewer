@@ -22,12 +22,12 @@ app.use(router);
 app.listen(PORT, HOST, () => {
   console.log(`Listening on: http://${HOST}:${PORT}/`)
 });
-
-const fs = require('fs');
-const YAML =  require('yaml');
-const file = fs.readFileSync('./data.yaml', 'utf8')
-const result = YAML.parse(file);
-
-console.log(result);
-console.log(result.resume.profile.info)
-console.log(result.resume.experience)
+//
+// const fs = require('fs');
+// const YAML =  require('yaml');
+// const file = fs.readFileSync('./data.yaml', 'utf8')
+// const result = YAML.parse(file);
+//
+// console.log(result);
+// console.log(result.resume.profile.info)
+// console.log(result.resume.experience)

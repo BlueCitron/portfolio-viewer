@@ -3,44 +3,39 @@
     <v-card>
       <v-card-title class="mb-3">서동성 (BlueCitron)</v-card-title>
       <v-card-text>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>{{ resume.profile.intro }}</p>
         <v-simple-table>
           <tbody>
-            <tr>
-              <td>Phone</td>
-              <td>010-7392-8550</td>
+            <tr v-for="item in resume.profile.info">
+              <td>{{ item.property }}</td>
+              <td>{{ item.value }}</td>
             </tr>
-            <tr>
-              <td>Github</td>
-              <td>https://github.com/BlueCitron</td>
-            </tr>
-            <tr>
-              <td>E-mail</td>
-              <td>sds901234@naver.com</td>
-            </tr>
-
           </tbody>
         </v-simple-table>
       </v-card-text>
 
 
       <v-card-title class="mb-3">경력</v-card-title>
-      <template v-for="item in [1, 2]">
+      <template v-for="item in resume.experience">
         <v-card-text>
-          <p>SKTelecom TANGO</p>
+          <p>{{ item.title }}</p>
           <v-simple-table>
             <tbody>
               <tr>
                 <td>Period</td>
-                <td>2019.08.03 - 2019.08.03</td>
+                <td>{{ item.period }}</td>
               </tr>
               <tr>
                 <td>Position</td>
-                <td>웹 개발자</td>
+                <td>{{ item.position }}</td>
+              </tr>
+              <tr>
+                <td>Description</td>
+                <td>{{ item.desc }}</td>
               </tr>
               <tr>
                 <td>Projects</td>
-                <td>OC(Operating Collecting), OR(Operating Resource)</td>
+                <td>{{ item.projects }}</td>
               </tr>
             </tbody>
           </v-simple-table>
@@ -58,7 +53,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr v-for="item in resume.skills">
+              <td style="width: 20%;">{{ item.name }}</td>
+              <td style="width: 10%;">{{ item.grade }}</td>
+              <td style="width: 70%;">{{ item.desc }}</td>
+            </tr>
+            <!-- <tr>
               <td>C/C++</td>
               <td>A</td>
               <td>학부에서 배움. 인간 컴파일러 수준.</td>
@@ -82,7 +82,8 @@
               <td>TIBCO BusenessWorks</td>
               <td>S</td>
               <td>라면 끓이는 시간이면 EAI 하나 뚝딱.</td>
-            </tr>
+            </tr> -->
+
           </tbody>
         </v-simple-table>
       </v-card-text>
@@ -91,7 +92,11 @@
 </template>
 <script>
 export default {
-
+  computed: {
+    resume: function () {
+      return this.$store.state.resume
+    }
+  }
 }
 </script>
 <style>

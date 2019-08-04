@@ -18,8 +18,13 @@ router.get('/resume', (req, res) => {
   }
 });
 
-router.get('/', (req, res) => {
-  res.json('Hello World');
+router.get('/portfolio', (req, res) => {
+  try {
+    const { portfolio } = YAML.parse(file);
+    res.json(portfolio);
+  } catch (e) {
+    console.err(e);
+  }
 });
 
 module.exports = router;
